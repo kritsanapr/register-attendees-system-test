@@ -18,13 +18,15 @@ app.use(
   })
 );
 
+const db = require("./config/db");
+// db.connect();
 app.use(cors({}));
 app.use(express.json());
 app.use(morgan("dev"));
 
 app.get("/api/helpcheck", (req, res) => {
   res.status(200).send({
-    message: "Help Check API is working",
+    message: "Help Check API is working!!",
   });
 });
 
