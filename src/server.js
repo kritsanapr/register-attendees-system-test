@@ -3,23 +3,21 @@ const morgan = require("morgan");
 const cors = require("cors");
 require("dotenv").config();
 
-const swaggerJsdoc = require("swagger-jsdoc");
 const swaggerUi = require("swagger-ui-express");
-const options = require("./swagger");
+const swaggerFile = require("./utils/swagger_output.json");
 const app = express();
 const port = process.env.PORT || 3333;
 
-const specs = swaggerJsdoc(options);
+const db = require("./config/db");
+// db.connect();
 app.use(
-  "/api-docs",
+  "/docs",
   swaggerUi.serve,
-  swaggerUi.setup(specs, {
+  swaggerUi.setup(swaggerFile, {
     explorer: true,
   })
 );
 
-const db = require("./config/db");
-// db.connect();
 app.use(cors({}));
 app.use(express.json());
 app.use(morgan("dev"));
